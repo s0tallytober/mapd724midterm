@@ -15,71 +15,74 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     
     override func didMove(to view: SKView) {
+        let machineNode = SKSpriteNode(imageNamed: "slotmachine")
+        self.addChild(machineNode)
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        self.backgroundColor = UIColor.white
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let slot1Node = SKSpriteNode(imageNamed: "banana")
+        slot1Node.zPosition = 1
+        slot1Node.position = CGPoint(x: slot1Node.position.x, y: slot1Node.position.y - 50)
+        self.addChild(slot1Node)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(M_PI), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        let slot2Node = SKSpriteNode(imageNamed: "banana")
+        slot2Node.zPosition = 1
+        slot2Node.position = CGPoint(x: slot1Node.position.x - 220, y: slot1Node.position.y)
+        self.addChild(slot2Node)
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+        let slot3Node = SKSpriteNode(imageNamed: "banana")
+        slot3Node.zPosition = 1
+        slot3Node.position = CGPoint(x: slot1Node.position.x + 218, y: slot1Node.position.y)
+        self.addChild(slot3Node)
+        
+        let resetNode = SKSpriteNode(imageNamed: "reset")
+        resetNode.zPosition = 1
+        resetNode.position = CGPoint(x: machineNode.position.x - 265, y: machineNode.position.y - 385)
+        self.addChild(resetNode)
+        
+        let bet1Node = SKSpriteNode(imageNamed: "bet1")
+        bet1Node.zPosition = 1
+        bet1Node.setScale(1.75)
+        bet1Node.position = CGPoint(x: machineNode.position.x - 132.5, y: machineNode.position.y - 385)
+        self.addChild(bet1Node)
+        
+        let bet5Node = SKSpriteNode(imageNamed: "bet5")
+        bet5Node.zPosition = 1
+        bet5Node.setScale(1.75)
+        bet5Node.position = CGPoint(x: machineNode.position.x, y: machineNode.position.y - 385)
+        self.addChild(bet5Node)
+        
+        let bet50Node = SKSpriteNode(imageNamed: "bet50")
+        bet50Node.zPosition = 1
+        bet50Node.setScale(1.75)
+        bet50Node.position = CGPoint(x: machineNode.position.x + 132.5, y: machineNode.position.y - 385)
+        self.addChild(bet50Node)
+        
+        let spinNode = SKSpriteNode(imageNamed: "spin")
+        spinNode.zPosition = 1
+        spinNode.position = CGPoint(x: machineNode.position.x + 265, y: machineNode.position.y - 385)
+        self.addChild(spinNode)
+        
+        let messageNode = SKLabelNode(text: "SPIN TO WIN")
+        messageNode.color = UIColor.white
+        messageNode.zPosition = 1
+        messageNode.position = CGPoint(x: machineNode.position.x, y: machineNode.position.y + 165)
+        self.addChild(messageNode)
+        
+        let creditNode = SKLabelNode(text: "100")
+        creditNode.zPosition = 1
+        creditNode.position = CGPoint(x: machineNode.position.x - 210, y: machineNode.position.y - 242.5)
+        self.addChild(creditNode)
+        
+        let betNode = SKLabelNode(text: "0")
+        betNode.zPosition = 1
+        betNode.position = CGPoint(x: machineNode.position.x, y: machineNode.position.y - 242.5)
+        self.addChild(betNode)
+        
+        let paidNode = SKLabelNode(text: "0")
+        paidNode.zPosition = 1
+        paidNode.position = CGPoint(x: machineNode.position.x + 210, y: machineNode.position.y - 242.5)
+        self.addChild(paidNode)
     }
     
     
