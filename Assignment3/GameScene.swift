@@ -13,6 +13,10 @@ class GameScene: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
+    private var slot1Node: SKSpriteNode!
+    private var slot2Node: SKSpriteNode!
+    private var slot3Node: SKSpriteNode!
+    private let manager = SlotMachineManager()
     
     override func didMove(to view: SKView) {
         let machineNode = SKSpriteNode(imageNamed: "slotmachine")
@@ -20,17 +24,17 @@ class GameScene: SKScene {
         
         self.backgroundColor = UIColor.white
         
-        let slot1Node = SKSpriteNode(imageNamed: "banana")
+        slot1Node = SKSpriteNode(imageNamed: "banana")
         slot1Node.zPosition = 1
         slot1Node.position = CGPoint(x: slot1Node.position.x, y: slot1Node.position.y - 50)
         self.addChild(slot1Node)
         
-        let slot2Node = SKSpriteNode(imageNamed: "banana")
+        slot2Node = SKSpriteNode(imageNamed: "banana")
         slot2Node.zPosition = 1
         slot2Node.position = CGPoint(x: slot1Node.position.x - 220, y: slot1Node.position.y)
         self.addChild(slot2Node)
         
-        let slot3Node = SKSpriteNode(imageNamed: "banana")
+        slot3Node = SKSpriteNode(imageNamed: "banana")
         slot3Node.zPosition = 1
         slot3Node.position = CGPoint(x: slot1Node.position.x + 218, y: slot1Node.position.y)
         self.addChild(slot3Node)
@@ -83,10 +87,30 @@ class GameScene: SKScene {
         paidNode.zPosition = 1
         paidNode.position = CGPoint(x: machineNode.position.x + 210, y: machineNode.position.y - 242.5)
         self.addChild(paidNode)
+        
+        
+        
+       // updateSlots(manager.spin())
+        
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        updateSlots(manager.spin())
+    }
+    
+    let fruits = ["grape", "banana", "orange", "cherry", "bar", "bell", "seven", "blank"]
+    
+    private func updateSlots(_ slotImages: [String]) {
+        slot1Node.texture = SKTexture(imageNamed: slotImages[0])
+        slot2Node.texture = SKTexture(imageNamed: slotImages[1])
+        slot3Node.texture = SKTexture(imageNamed: slotImages[2])
     }
     
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        manager.update(updateSlots(_:))
     }
 }
