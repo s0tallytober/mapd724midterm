@@ -7,19 +7,29 @@
 //
 
 import Foundation
+import SpriteKit
 
+protocol SlotMachineManagerDelegate {
+    
+    func getScene() -> SKScene
+    
+    func updateCredit(amount : Int)
+    func updateBet(amount : Int)
+    func updatePaid(amount : Int)
+    func updateMessage(message : String)
+    
+    func enableBet1(enable: Bool)
+    func enableBet5(enable: Bool)
+    func enableBet50(enable: Bool)
+    func enableSpin(enable: Bool)
+    
+}
 class SlotMachineManager {
     
     var playerMoney = 1000;
     var winnings = 0;
     var jackpot = 5000;
-    var turn = 0;
     var playerBet = 0;
-    var winNumber = 0;
-    var lossNumber = 0;
-    var spinResult: [String] = [];
-    var fruits = "";
-    var winRatio = 0;
     
     var grapes = 0;
     var bananas = 0;
@@ -32,7 +42,61 @@ class SlotMachineManager {
     
     
     var spinning: Bool = false
+    var spinningWheel0: Bool = false
+    var spinningWheel1: Bool = false
+    var spinningWheel2: Bool = false
     var spinningStart: TimeInterval!
+    var spinningResult: [String]!
+    
+    let delegate: SlotMachineManagerDelegate
+    
+    init(_ delegate: SlotMachineManagerDelegate) {
+        self.delegate = delegate
+    }
+    
+    func reset() {
+        playerMoney = playerMoney + playerBet
+        playerBet = 0
+        delegate.updateCredit(amount: playerMoney)
+        delegate.updateBet(amount: playerBet)
+        updateBetButtons()
+        delegate.enableSpin(enable: false)
+    }
+    
+    func bet(amount: Int) {
+        if (amount > playerMoney) {
+            delegate.updateMessage(message: "NO CREDIT!")
+            return
+        }
+        
+        playerMoney = playerMoney - amount
+        playerBet = playerBet + amount
+        delegate.updateCredit(amount: playerMoney)
+        delegate.updateBet(amount: playerBet)
+        updateBetButtons()
+        delegate.enableSpin(enable: true)
+    }
+    
+    private func updateBetButtons() {
+        var enableBet1 = true
+        var enableBet5 = true
+        var enableBet50 = true
+        
+        if (playerMoney < 1) {
+            enableBet1 = false
+            enableBet5 = false
+            enableBet50 = false
+        } else if (playerMoney < 5) {
+            enableBet5 = false
+            enableBet50 = false
+        } else if (playerMoney < 50) {
+            enableBet50 = false
+        }
+        
+        delegate.enableBet1(enable: enableBet1)
+        delegate.enableBet5(enable: enableBet5)
+        delegate.enableBet50(enable: enableBet50)
+    }
     
     /* Utility function to check if a value falls within a range of bounds */
     func checkRange(_ value: Int, _ lowerBounds: Int, _ upperBounds: Int) -> Bool {
@@ -45,7 +109,11 @@ class SlotMachineManager {
     
     /* When this function is called it determines the betLine results.
      e.g. Bar - Orange - Banana */
-    func spin() -> [String] {
+    func spin() {
+        if (spinning || playerBet == 0) {
+            return
+        }
+        
         var betLine = [" ", " ", " "]
         
         
@@ -104,8 +172,14 @@ class SlotMachineManager {
             sevens = sevens + 1
         }
         spinning = true
+        spinningWheel0 = true
+        spinningWheel1 = true
+        spinningWheel2 = true
         spinningStart = NSDate.timeIntervalSinceReferenceDate
-        return betLine;
+        delegate.getScene().run(SKAction.playSoundFileNamed("spinning", waitForCompletion: false))
+        spinningResult = betLine;
+        delegate.updatePaid(amount: 0)
+        delegate.enableSpin(enable: false)
     }
     
     /* This function calculates the player's winnings, if any */
@@ -161,34 +235,77 @@ class SlotMachineManager {
             else {
                 winnings = playerBet * 1;
             }
-            winNumber = winNumber + 1;
-            //showWinMessage();
+            playerMoney = playerMoney + winnings
+            delegate.updateCredit(amount: playerMoney)
+            delegate.updatePaid(amount: winnings)
+            delegate.updateMessage(message: "YOU WON!!!")
         }
         else
         {
-            lossNumber = lossNumber + 1;
-            //showLossMessage();
+            delegate.updateMessage(message: "TRY AGAIN!!!")
         }
+        playerBet = 0
+        delegate.updateBet(amount: 0)
+        updateBetButtons()
+        grapes = 0;
+        bananas = 0;
+        oranges = 0;
+        cherries = 0;
+        bars = 0;
+        bells = 0;
+        sevens = 0;
+        blanks = 0;
+        
         
     }
     
     let fruitsArray = ["grape", "banana", "orange", "cherry", "bar", "bell", "seven", "blank"]
     
-    func update(_ updateFunction: ([String]) -> Void) {
+    func update(_ updateFunction: (Int, String) -> Void) {
         if (spinning) {
-            var slotImages: [String] = []
-            if (NSDate.timeIntervalSinceReferenceDate - spinningStart >= 3) {
-                slotImages = spin()
+            let spinningDuration = NSDate.timeIntervalSinceReferenceDate - spinningStart
+            if (spinningDuration >= 2.75) {
+                updateFunction(0, spinningResult[0])
+                updateFunction(1, spinningResult[1])
+                updateFunction(2, spinningResult[2])
                 spinning = false
                 spinningStart = nil
+                spinningResult = nil
+                
             } else {
-                slotImages.append(fruitsArray[Int(arc4random_uniform(8))])
-                slotImages.append(fruitsArray[Int(arc4random_uniform(8))])
-                slotImages.append(fruitsArray[Int(arc4random_uniform(8))])
+                if (spinningDuration >= 1.0) {
+                    if (spinningWheel0) {
+                        updateFunction(0, spinningResult[0])
+                        spinningWheel0 = false
+                    }
+                } else {
+                    updateWithRandom(wheel: 0, function: updateFunction)
+                }
+                
+                if (spinningDuration >= 1.7) {
+                    if (spinningWheel1) {
+                        updateFunction(1, spinningResult[1])
+                        spinningWheel1 = false
+                    }
+                } else {
+                    updateWithRandom(wheel: 1, function: updateFunction)
+                }
+                
+                if (spinningDuration >= 2.2) {
+                    if (spinningWheel2) {
+                        updateFunction(2, spinningResult[2])
+                        spinningWheel2 = false
+                        determineWinnings()
+                    }
+                } else {
+                    updateWithRandom(wheel: 2, function: updateFunction)
+                }
             }
-            
-            updateFunction(slotImages)
         }
+    }
+    
+    private func updateWithRandom(wheel: Int, function: (Int, String) -> Void) {
+        function(wheel, fruitsArray[Int(arc4random_uniform(8))])
     }
     
 }

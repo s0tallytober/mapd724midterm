@@ -16,7 +16,11 @@
 		7D69DA871E8B36A500AE69FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D69DA861E8B36A500AE69FA /* Assets.xcassets */; };
 		7D69DA8A1E8B36A500AE69FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D69DA881E8B36A500AE69FA /* LaunchScreen.storyboard */; };
 		7DA0A8E91E9028C700C17BF3 /* SlotMachineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA0A8E81E9028C700C17BF3 /* SlotMachineManager.swift */; };
-		7DA0A8EB1E90900300C17BF3 /* spinning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7DA0A8EA1E90900300C17BF3 /* spinning.wav */; };
+		7DA0A8EF1E90925000C17BF3 /* spinning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DA0A8EE1E90925000C17BF3 /* spinning.mp3 */; };
+		7DA0A8F11E90BDC700C17BF3 /* machine_button.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DA0A8F01E90BDC700C17BF3 /* machine_button.mp3 */; };
+		7DA0A8F31E90BDCB00C17BF3 /* disabled_button.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DA0A8F21E90BDCB00C17BF3 /* disabled_button.mp3 */; };
+		7DA0A8F51E90BDF200C17BF3 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA0A8F41E90BDF200C17BF3 /* Button.swift */; };
+		7DA0A8F71E90C8E500C17BF3 /* disabled_button_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7DA0A8F61E90C8E500C17BF3 /* disabled_button_2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +35,11 @@
 		7D69DA891E8B36A500AE69FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D69DA8B1E8B36A500AE69FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DA0A8E81E9028C700C17BF3 /* SlotMachineManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotMachineManager.swift; sourceTree = "<group>"; };
-		7DA0A8EA1E90900300C17BF3 /* spinning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = spinning.wav; path = ../../../../Downloads/spinning.wav; sourceTree = "<group>"; };
+		7DA0A8EE1E90925000C17BF3 /* spinning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = spinning.mp3; path = ../../../../Downloads/spinning.mp3; sourceTree = "<group>"; };
+		7DA0A8F01E90BDC700C17BF3 /* machine_button.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = machine_button.mp3; path = ../../../../Downloads/machine_button.mp3; sourceTree = "<group>"; };
+		7DA0A8F21E90BDCB00C17BF3 /* disabled_button.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = disabled_button.mp3; path = ../../../../Downloads/disabled_button.mp3; sourceTree = "<group>"; };
+		7DA0A8F41E90BDF200C17BF3 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		7DA0A8F61E90C8E500C17BF3 /* disabled_button_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = disabled_button_2.mp3; path = ../../../../Downloads/disabled_button_2.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +77,7 @@
 				7D69DA7B1E8B36A500AE69FA /* GameScene.sks */,
 				7D69DA7D1E8B36A500AE69FA /* Actions.sks */,
 				7D69DA7F1E8B36A500AE69FA /* GameScene.swift */,
+				7DA0A8F41E90BDF200C17BF3 /* Button.swift */,
 				7DA0A8E81E9028C700C17BF3 /* SlotMachineManager.swift */,
 				7D69DA811E8B36A500AE69FA /* GameViewController.swift */,
 				7D69DA831E8B36A500AE69FA /* Main.storyboard */,
@@ -82,7 +91,10 @@
 		7DA0A8EC1E90900700C17BF3 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				7DA0A8EA1E90900300C17BF3 /* spinning.wav */,
+				7DA0A8F61E90C8E500C17BF3 /* disabled_button_2.mp3 */,
+				7DA0A8F01E90BDC700C17BF3 /* machine_button.mp3 */,
+				7DA0A8F21E90BDCB00C17BF3 /* disabled_button.mp3 */,
+				7DA0A8EE1E90925000C17BF3 /* spinning.mp3 */,
 			);
 			name = sounds;
 			sourceTree = "<group>";
@@ -157,10 +169,13 @@
 			files = (
 				7D69DA851E8B36A500AE69FA /* Main.storyboard in Resources */,
 				7D69DA7C1E8B36A500AE69FA /* GameScene.sks in Resources */,
+				7DA0A8EF1E90925000C17BF3 /* spinning.mp3 in Resources */,
 				7D69DA871E8B36A500AE69FA /* Assets.xcassets in Resources */,
+				7DA0A8F31E90BDCB00C17BF3 /* disabled_button.mp3 in Resources */,
 				7D69DA8A1E8B36A500AE69FA /* LaunchScreen.storyboard in Resources */,
-				7DA0A8EB1E90900300C17BF3 /* spinning.wav in Resources */,
+				7DA0A8F71E90C8E500C17BF3 /* disabled_button_2.mp3 in Resources */,
 				7D69DA7E1E8B36A500AE69FA /* Actions.sks in Resources */,
+				7DA0A8F11E90BDC700C17BF3 /* machine_button.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +186,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DA0A8F51E90BDF200C17BF3 /* Button.swift in Sources */,
 				7D69DA801E8B36A500AE69FA /* GameScene.swift in Sources */,
 				7DA0A8E91E9028C700C17BF3 /* SlotMachineManager.swift in Sources */,
 				7D69DA821E8B36A500AE69FA /* GameViewController.swift in Sources */,
