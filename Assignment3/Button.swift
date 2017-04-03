@@ -38,7 +38,7 @@ class Button: SKSpriteNode {
             scene!.run(SKAction.playSoundFileNamed("machine_button", waitForCompletion: false))
             action()
         } else {
-            scene!.run(SKAction.playSoundFileNamed("disabled_button_2", waitForCompletion: false))
+            scene!.run(SKAction.playSoundFileNamed("disabled_button", waitForCompletion: false))
         }
     }
     

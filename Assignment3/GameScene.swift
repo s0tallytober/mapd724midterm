@@ -114,7 +114,7 @@ class GameScene: SKScene, SlotMachineManagerDelegate {
     }
     
     private func preloadSounds() {
-        let sounds = ["machine_button", "disabled_button_2", "spinning"]
+        let sounds = ["machine_button", "disabled_button", "spinning"]
         for sound in sounds {
             do {
                 let path = Bundle.main.path(forResource: sound, ofType: "mp3")!
