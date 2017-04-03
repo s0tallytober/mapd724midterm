@@ -18,6 +18,7 @@ protocol SlotMachineManagerDelegate {
     func updatePaid(amount : Int)
     func updateMessage(message : String)
     
+    func enableReset(enable: Bool)
     func enableBet1(enable: Bool)
     func enableBet5(enable: Bool)
     func enableBet50(enable: Bool)
@@ -180,6 +181,10 @@ class SlotMachineManager {
         spinningResult = betLine;
         delegate.updatePaid(amount: 0)
         delegate.enableSpin(enable: false)
+        delegate.enableBet1(enable: false)
+        delegate.enableBet5(enable: false)
+        delegate.enableBet50(enable: false)
+        delegate.enableReset(enable: false)
     }
     
     /* This function calculates the player's winnings, if any */
@@ -246,6 +251,7 @@ class SlotMachineManager {
         }
         playerBet = 0
         delegate.updateBet(amount: 0)
+        delegate.enableReset(enable: true)
         updateBetButtons()
         grapes = 0;
         bananas = 0;

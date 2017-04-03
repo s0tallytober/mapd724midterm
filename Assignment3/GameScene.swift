@@ -19,6 +19,7 @@ class GameScene: SKScene, SlotMachineManagerDelegate {
     private var betNode: SKLabelNode!
     private var paidNode: SKLabelNode!
     private var messageNode: SKLabelNode!
+    private var resetNode: Button!
     private var bet1Node: Button!
     private var bet5Node: Button!
     private var bet50Node: Button!
@@ -53,7 +54,13 @@ class GameScene: SKScene, SlotMachineManagerDelegate {
         slotNodes.append(slot1Node)
         slotNodes.append(slot3Node)
         
-        let resetNode = Button(name: "reset", action: manager.reset)
+        let turnOffNode = Button(name: "turn_off", action: self.turnOff)
+        turnOffNode.zPosition = 1
+        turnOffNode.scale(to: CGSize(width: self.size.width / 8, height: self.size.width / 8))
+        turnOffNode.position = CGPoint(x: machineNode.position.x + 320, y: machineNode.position.y + 500)
+        self.addChild(turnOffNode)
+        
+        resetNode = Button(name: "reset", action: manager.reset)
         resetNode.zPosition = 1
         resetNode.position = CGPoint(x: machineNode.position.x - 265, y: machineNode.position.y - 385)
         self.addChild(resetNode)
@@ -120,6 +127,10 @@ class GameScene: SKScene, SlotMachineManagerDelegate {
         }
     }
     
+    private func turnOff() {
+        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+    }
+    
     
     private func bet1() {
         manager.bet(amount: 1)
@@ -163,6 +174,11 @@ class GameScene: SKScene, SlotMachineManagerDelegate {
     
     func updateMessage(message: String) {
         messageNode.text = message
+    }
+    
+    func enableReset(enable: Bool) {
+        resetNode.enable(enable)
+        
     }
     
     func enableBet1(enable: Bool) {
