@@ -2,9 +2,10 @@
 //  Button.swift
 //  Assignment3
 //
-//  Created by Willian Campos on 2017-04-02.
+//  Created by Willian Campos (300879280) on 2017-03-28.
 //  Copyright © 2017 Willian Campos. All rights reserved.
 //
+// This represents the buttons of slot machine.
 
 import Foundation
 import SpriteKit
@@ -26,6 +27,8 @@ class Button: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Allows to enable / disable one button.
+    // It also switches the image based on such state.
     func enable(_ enabled: Bool) {
         if (self.enabled != enabled) {
             self.enabled = enabled
@@ -33,6 +36,7 @@ class Button: SKSpriteNode {
         }
     }
     
+    // Detects touches on this button. Invokes the specified action when touched and enabled
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (enabled) {
             scene!.run(SKAction.playSoundFileNamed("machine_button", waitForCompletion: false))

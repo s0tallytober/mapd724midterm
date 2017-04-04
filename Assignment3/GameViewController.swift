@@ -2,10 +2,11 @@
 //  GameViewController.swift
 //  Assignment3
 //
-//  Created by Willian Campos on 2017-03-28.
+//  Created by Willian Campos (300879280) on 2017-03-28.
 //  Copyright © 2017 Willian Campos. All rights reserved.
 //
-
+// This is the controller of this game
+//
 import UIKit
 import SpriteKit
 import GameplayKit
