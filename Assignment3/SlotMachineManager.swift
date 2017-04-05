@@ -61,9 +61,13 @@ class SlotMachineManager {
     
     // Func invoked when user clicks on reset button
     func reset() {
-        playerMoney = playerMoney + playerBet
+        playerMoney = 1000
+        jackpot = 5000
         playerBet = 0
+        delegate.updateMessage(message: "SPIN TO WIN!!!")
         delegate.updateCredit(amount: playerMoney)
+        delegate.updatePaid(amount: 0)
+        delegate.updateJackpot(amount: jackpot)
         delegate.updateBet(amount: playerBet)
         updateBetButtons()
         delegate.enableSpin(enable: false)
