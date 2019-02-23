@@ -2,8 +2,8 @@
 //  GameViewController.swift
 //  Assignment3
 //
-//  Created by Willian Campos (300879280) on 2017-03-28.
-//  Copyright © 2017 Willian Campos. All rights reserved.
+//  Created by  venkatesh on 2019-2-21
+//  Copyright © 2019 Venkatesh. All rights reserved.
 //
 // This is the controller of this game
 //
